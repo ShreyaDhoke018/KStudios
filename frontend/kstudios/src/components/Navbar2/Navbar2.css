@@ -1,0 +1,45 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+.custom-navbar-bg {
+  background-color:#052b3d;
+  z-index: 10;
+  position: relative;
+}
+.navbar-brand-text {
+  color: #f2ea0c !important;
+  font-size: 22px !important;
+  font-weight: bold;
+}
+.navbar-brand {
+  color: #f2ea0c;
+}
+/* Nav link text */
+.nav-link-text {
+  color: #fff !important;
+  font-size: 16px !important;
+  margin-left: 20px;
+  text-decoration: none;
+}
+
+.nav-link-text:hover {
+  color: #f2ea0c !important; /* Hover effect */
+}
+
+.nav-link-text:active {
+  color: #f2ea0c !important;
+}
+
+.navbar-collapse {
+  z-index: 20 !important;          /* Make sure it's above background */
+  background-color: #052b3d;       /* Optional: matches your navbar color */
+  position: relative;              /* Needed so z-index applies */
+}
+
+.navbar-toggler{
+  background-color: #f2ea0c !important;
+  color: white;
+}

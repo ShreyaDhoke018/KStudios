@@ -1,0 +1,91 @@
+.menu_table {
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  border-collapse: collapse;
+  width: 80%;
+  max-width: 1200px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border: 2px solid #333;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Add borders to cells */
+.menu_table th,
+.menu_table td {
+  border: 1px solid #999;
+  padding: 10px;
+  text-align: center;
+}
+
+/* Make header standout */
+.menu_table th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
+/* Buttons */
+.menu_table_button {
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+.menu_table button:hover {
+  background-color: #005fa3;
+}
+
+/* Responsive styles */
+@media (max-width: 1024px) {
+  .menu_table {
+    font-size: 14px;
+    width: 90%;
+    left: 5%;
+  }
+
+  .menu_table th,
+  .menu_table td {
+    padding: 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  .menu_table {
+    font-size: 12px;
+    width: 95%;
+    left: 2.5%;
+  }
+
+  .menu_table th,
+  .menu_table td {
+    padding: 6px;
+  }
+
+  .menu_table button {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .menu_table {
+    font-size: 10px;
+    overflow-x: auto;
+    display: block;
+  }
+
+  .menu_table th,
+  .menu_table td {
+    padding: 5px;
+  }
+
+  .menu_table button {
+    font-size: 10px;
+    padding: 3px 6px;
+  }
+}

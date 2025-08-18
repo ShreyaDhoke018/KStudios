@@ -1,0 +1,133 @@
+* {
+  box-sizing: border-box;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.home_body {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden; /* Prevents scrollbar during animation */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 15px;
+  z-index: 1;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  animation: fadeInBg 1s ease-in-out;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px);
+  z-index: 0;
+}
+
+.home_image {
+  z-index: 2;
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  justify-content: center;
+  animation: fadeInBox 1s ease forwards;
+}
+
+.home_logo {
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.home_button_box {
+  position: absolute;
+  top: 90%;
+  z-index: 2;
+  animation: fadeInBox 1.2s ease forwards;
+}
+
+.home_button {
+  background-color: #052b3d;
+  color: #f2ea0c;
+  font-size: 20px;
+  border-radius: 15px;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.home_button:hover {
+  background-color: #031d2b;
+  transform: translateY(-2px);
+}
+
+.menu_button{
+  text-decoration: none;
+  color: white;
+}
+
+/* Animations */
+@keyframes fadeInBg {
+  from {
+    opacity: 0;
+    transform: translateY(10px); /* Replaces scale to prevent overflow */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInBox {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .home_logo {
+    max-height: 100%;
+  }
+
+  .home_button {
+    font-size: 16px;
+    padding: 8px 16px;
+  }
+
+  .home_button_box {
+    top: 85%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .home_logo {
+    max-height: 100%;
+  }
+
+  .home_button {
+    font-size: 14px;
+    padding: 6px 14px;
+  }
+
+  .home_button_box {
+    top: 80%;
+  }
+}

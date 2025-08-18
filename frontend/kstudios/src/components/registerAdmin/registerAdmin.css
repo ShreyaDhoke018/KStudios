@@ -1,0 +1,171 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+.registerAdmin_body {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  animation: fadeInBg 1s ease-in-out;
+}
+
+.registerAdmin_overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px);
+  z-index: 0;
+}
+
+.registerAdmin_box {
+  position: relative;
+      top: 4%;
+  z-index: 1;
+  background: #002b40;
+  color: white;
+  width: 400px;
+  padding: 25px 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  animation: fadeInBox 0.7s ease;
+}
+
+.registerAdmin_head {
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.registerAdmin_form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.registerAdmin_form label {
+  font-weight: 500;
+}
+
+.registerAdmin_form input {
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.registerAdmin_form input:focus {
+  border-color: #ffd700;
+}
+
+.registerAdmin_btn {
+  background-color: #ffd700;
+  border: none;
+  color: #000;
+  font-weight: bold;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.registerAdmin_btn:hover {
+  background-color: #e6c200;
+}
+
+.registerAdmin_login {
+  text-align: center;
+  font-size: 14px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.registerAdmin_login .login {
+  color: #ff4c4c;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.registerAdmin_login .login:hover {
+  text-decoration: underline;
+}
+
+/* Animations */
+@keyframes fadeInBg {
+  from {
+    opacity: 0;
+    transform: scale(1.02);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeInBox {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .registerAdmin_box {
+    width: 90%;
+    padding: 30px 20px;
+  }
+
+  .registerAdmin_head {
+    font-size: 28px;
+  }
+
+  .registerAdmin_form input {
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  .registerAdmin_btn {
+    font-size: 15px;
+    padding: 10px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .registerAdmin_box {
+    width: 95%;
+    padding: 25px 15px;
+  }
+
+  .registerAdmin_head {
+    font-size: 24px;
+  }
+
+  .registerAdmin_form label {
+    font-size: 14px;
+  }
+
+  .registerAdmin_login {
+    font-size: 13px;
+  }
+}
