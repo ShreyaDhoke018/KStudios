@@ -19,6 +19,7 @@ public class Enrollments {
     private String date;
 
 
+
     @Column(length = 150, nullable = false)
     private String time;
 
@@ -29,16 +30,29 @@ public class Enrollments {
     @JoinColumn(name = "user_id", referencedColumnName = "uid", nullable = false)
     private Users user;
 
+    @ManyToOne
+    @JoinColumn(name = "session_id", referencedColumnName = "slot_id")
+    private Booking booking;
+
     public Enrollments() {
     }
 
-    public Enrollments(Users user, String payment_status, String time, String date, String session_name, int enrollId) {
+    public Enrollments(Users user, String payment_status, String time, String date, String session_name, int enrollId, Booking booking) {
         this.user = user;
         this.payment_status = payment_status;
         this.time = time;
         this.date = date;
         this.session_name = session_name;
         this.enrollId = enrollId;
+        this.booking = booking;
+    }
+
+    public Booking getBooking() {
+        return booking;
+    }
+
+    public void setBooking(Booking booking) {
+        this.booking = booking;
     }
 
     public String getPayment_status() {
@@ -49,11 +63,11 @@ public class Enrollments {
         this.payment_status = payment_status;
     }
 
-    public int getenrollId() {
+    public int getEnrollId() {
         return enrollId;
     }
 
-    public void setenrollId(int enrollId) {
+    public void setEnrollId(int enrollId) {
         this.enrollId = enrollId;
     }
 

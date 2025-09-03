@@ -15,6 +15,7 @@
     const [showModal, setShowModal] = useState(false);
     const [sessionName, setSessionName] = useState("");
     const [bookedSession, setBookedSession] = useState(null);
+    const [bookedSessionId, setBookedSessioId] = useState(null);
     const [slotBooked, setSlotBooked] = useState(false);
 
     
@@ -43,28 +44,6 @@
         alert("Please login for renting/enrolling!");
       }
     };
-
-    // useEffect(() => {
-    //   const fetchUserId = async () => {
-    //     try {
-    //       // const user = JSON.parse(localStorage.getItem("user"));
-    //       if (isLogged) {
-    //         const response = await axios.post(
-    //           "http://localhost:8080/api/getUserId",
-    //           {
-    //             username: username,
-    //           }
-    //         );
-    //         setUserId(response.data);
-    //       }
-    //     } catch (error) {
-    //       console.error("Error fetching userId:", error);
-    //     }
-    //   };
-
-    //   fetchUserId();
-    // }, []);
-
 
     // console.log("Uid: ", userId);
 
@@ -115,6 +94,7 @@
         const response = await axios.post("http://localhost:8080/api/enroll", {
           user: { uid: userId },
           session_name: bookedSession,
+          booking: { slot_id: bookedSessionId },
           date: date,
           time: time,
           payment_status: "Unpaid",
@@ -155,8 +135,10 @@
 
            if (response.data && response.data.session_name) {
              setBookedSession(response.data.session_name); // <-- set booked session
+             setBookedSessioId(response.data.slot_id);
            } else {
              setBookedSession(null);
+             setBookedSessioId(null);
            }
          } catch (error) {
            console.error("Error fetching booking:", error);

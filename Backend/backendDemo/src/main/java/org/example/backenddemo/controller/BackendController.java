@@ -233,6 +233,9 @@ public class BackendController {
 
             enrollmentDto.setUser(user);
 
+            Booking booking = bookingRepository.findBySlotId(enrollmentDto.getBooking().getSlot_id())
+                    .orElseThrow(() -> new RuntimeException("Slot not found"));
+
             enrollmentsRepository.save(enrollmentDto);
             return "Slot booked successfully!";
         } catch (Exception e) {
@@ -256,6 +259,63 @@ public class BackendController {
         }catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/allEnrollments")
+    public ResponseEntity<?> getAllEnrollments() {
+        try {
+            List<Enrollments> enrollments = enrollmentsRepository.findAll();
+            if (enrollments.isEmpty()) {
+                return ResponseEntity.ok("No enrollments found.");
+            }
+            return ResponseEntity.ok(enrollments);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/deleteEnrollments")
+    public String deleteEnrollments(@RequestBody Enrollments enrollmentDto) {
+        try{
+            int deletedCount = enrollmentsRepository.deleteEnrollmentByDateAndTime(
+                    enrollmentDto.getDate(),
+                    enrollmentDto.getTime()
+            );
+
+            if (deletedCount > 0) {
+                return "Enrollment deleted successfully.";
+            } else {
+                return "No enrollment found for the given date and time.";
+            }
+
+        } catch (Exception e) {
+            return "Error: " + e.getMessage();
+        }
+    }
+
+    @PostMapping("/updateEnrollments")
+    public String updateEnrollments(@RequestBody Enrollments enrollmentDto) {
+        try{
+            if (enrollmentDto.getDate() == null) {
+                return "Date is required to update booking.";
+            }
+
+            int updated = enrollmentsRepository.updateEnrollmentByDate(
+                    enrollmentDto.getTime(),
+                    enrollmentDto.getPayment_status(),
+                    enrollmentDto.getDate()
+            );
+
+            if (updated > 0) {
+                return "Booking updated successfully.";
+            } else {
+                return "No booking found for the given date.";
+            }
+
+        } catch (Exception e) {
+            return "Error: " + e.getMessage();
         }
     }
 
@@ -294,7 +354,7 @@ public class BackendController {
 
     @PostMapping("/updateBookings")
     public String updateBookings(@RequestBody Booking bookingDto) {
-        try{
+        try {
             if (bookingDto.getDate() == null) {
                 return "Date is required to update booking.";
             }
@@ -304,10 +364,17 @@ public class BackendController {
                     bookingDto.getSession_name(),
                     bookingDto.getPayment_status(),
                     bookingDto.getDate()
+
             );
 
             if (updated > 0) {
-                return "Booking updated successfully.";
+                enrollmentsRepository.updateEnrollmentsBySessionId(
+                        bookingDto.getSlot_id(),
+                        bookingDto.getDate(),
+                        bookingDto.getTime(),
+                        bookingDto.getSession_name()
+                );
+                return "Booking and enrollments updated successfully.";
             } else {
                 return "No booking found for the given date.";
             }

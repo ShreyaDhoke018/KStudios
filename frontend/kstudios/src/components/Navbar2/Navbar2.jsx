@@ -49,7 +49,7 @@ const Navbar2 = () => {
                 <Nav.Link as={NavLink} to="/bookings" className="nav-link-text">
                   Manage Bookings
                 </Nav.Link>
-                <Nav.Link as={NavLink} to="/" className="nav-link-text">
+                <Nav.Link as={NavLink} to="/enrollments" className="nav-link-text">
                   Manage Enrollments
                 </Nav.Link>
               </>

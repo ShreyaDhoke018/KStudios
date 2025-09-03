@@ -16,6 +16,10 @@ import java.util.Optional;
 public interface bookingRepository extends JpaRepository<Booking, Integer> {
     Optional<Booking> findById(int id);
 
+
+    @Query("SELECT b FROM Booking b WHERE b.slot_id = :slotId")
+    Optional<Booking> findBySlotId(@Param("slotId") int slotId);
+
     Optional<Booking> findByDate(String date);
 
     Optional<Booking> findByDateAndTime(String date, String time);

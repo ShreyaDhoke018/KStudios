@@ -1,139 +1,141 @@
 import React, { useState, useEffect } from "react";
-import "./Bookings.css";
+import "./Enrollments.css";
 import axios from "axios";
 import { CSVLink } from "react-csv";
 import Navbar2 from "../Navbar2/Navbar2";
 
-const Bookings = () => {
-  const [selectedValue, setSelectedValue] = useState("Default");
+const Enrollments = () => {
 
-  const [bookings, setBookings] = useState([]);
-
-  const [updatedTime, setUpdatedTime] = useState("");
-  const [updatedSessionName, setUpdatedSessionName] = useState("");
-  const [updatedPaymentStatus, setUpdatedPaymentStatus] = useState("");
-  const [updatedDate, setUpdatedDate] = useState("");
-
-  const handleChange = (event) => {
-    setSelectedValue(event.target.value);
-  };
-
-  const headers = [
-    { label: "Date", key: "date" },
-    { label: "Day", key: "day" },
-    { label: "Time", key: "time" },
-    { label: "Session Name", key: "session_name" },
-    { label: "User Email", key: "user_email" },
-    { label: "Payment Status", key: "payment_status" },
-  ];
-
-  useEffect(() => {
-    return () => {
-      const fetchAllBooking = async () => {
+    const [selectedValue, setSelectedValue] = useState("Default");
+    
+      const [enrollments, setEnrollments] = useState([]);
+    
+      const [updatedTime, setUpdatedTime] = useState("");
+      const [updatedSessionName, setUpdatedSessionName] = useState("");
+      const [updatedPaymentStatus, setUpdatedPaymentStatus] = useState("");
+      const [updatedDate, setUpdatedDate] = useState("");
+    
+      const handleChange = (event) => {
+        setSelectedValue(event.target.value);
+      };
+    
+      const headers = [
+        { label: "Date", key: "date" },
+        { label: "Day", key: "day" },
+        { label: "Time", key: "time" },
+        { label: "Session Name", key: "session_name" },
+        { label: "User Email", key: "user_email" },
+        { label: "Payment Status", key: "payment_status" },
+      ];
+    
+      useEffect(() => {
+        return () => {
+          const fetchAllEnrollment = async () => {
+            try {
+              const response = await axios.post(
+                "http://localhost:8080/api/allEnrollments"
+              );
+    
+              if (Array.isArray(response.data)) {
+                setEnrollments(response.data);
+              } else {
+                setEnrollments([]); // empty state
+              }
+            } catch (error) {
+              console.error("Error fetching enrollment:", error);
+            }
+          };
+    
+          fetchAllEnrollment();
+        };
+      }, []);
+    
+      const cancelEnrollment = async (date, time) => {
         try {
+          console.log("Date", date);
+          console.log("Time", time);
           const response = await axios.post(
-            "http://localhost:8080/api/allBookings"
+            "http://localhost:8080/api/deleteEnrollments",
+            {
+              date: date,
+              time: time,
+            }
           );
-
-          if (Array.isArray(response.data)) {
-            setBookings(response.data);
-          } else {
-            setBookings([]); // empty state
+          if (response.data) {
+            alert(response.data);
+            setBookedDate("");
+            setBookedTime("");
+            window.location.reload();
           }
         } catch (error) {
-          console.error("Error fetching booking:", error);
+          console.error("Error fetching enrollment:", error);
         }
       };
-
-      fetchAllBooking();
-    };
-  }, []);
-
-  const cancelBooking = async (date, time) => {
-    try {
-      console.log("Date", date);
-      console.log("Time", time);
-      const response = await axios.post(
-        "http://localhost:8080/api/deleteBookings",
-        {
-          date: date,
-          time: time,
+    
+      const formatDate = (dateString) => {
+        if (!dateString) return "";
+        const date = new Date(dateString);
+        const months = [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ];
+    
+        const day = date.getDate();
+        const month = months[date.getMonth()]; // always 3 letters
+        const year = date.getFullYear();
+    
+        return `${day} ${month} ${year}`;
+      };
+    
+      const handleUpdate = async (e) => {
+        try {
+          e.preventDefault();
+          console.log("Date",updatedDate);
+          console.log("Format Date", formatDate(updatedDate));
+          console.log("Payment Status",updatedPaymentStatus);
+          console.log("Time",updatedTime);
+          console.log("Session Name:",updatedSessionName)
+          const response = await axios.post(
+            "http://localhost:8080/api/updateEnrollments",
+            {
+              date: formatDate(updatedDate),
+              time: updatedTime,
+              session_name: updatedSessionName,
+              payment_status: updatedPaymentStatus,
+            }
+          );
+    
+          if(response.data){
+            alert(response.data)
+          }
+          window.location.reload();
+        } catch (error) {
+          console.error("Error fetching enrollment:", error);
         }
-      );
-      if (response.data) {
-        alert(response.data);
-        setBookedDate("");
-        setBookedTime("");
-        window.location.reload();
-      }
-    } catch (error) {
-      console.error("Error fetching booking:", error);
-    }
-  };
-
-  const formatDate = (dateString) => {
-    if (!dateString) return "";
-    const date = new Date(dateString);
-    const months = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
-
-    const day = date.getDate();
-    const month = months[date.getMonth()]; // always 3 letters
-    const year = date.getFullYear();
-
-    return `${day} ${month} ${year}`;
-  };
-
-  const handleUpdate = async (e) => {
-    try {
-      e.preventDefault();
-      console.log("Date",updatedDate);
-      console.log("Format Date", formatDate(updatedDate));
-      console.log("Payment Status",updatedPaymentStatus);
-      console.log("Time",updatedTime);
-      console.log("Session Name:",updatedSessionName)
-      const response = await axios.post(
-        "http://localhost:8080/api/updateBookings",
-        {
-          date: formatDate(updatedDate),
-          time: updatedTime,
-          session_name: updatedSessionName,
-          payment_status: updatedPaymentStatus,
-        }
-      );
-
-      if(response.data){
-        alert(response.data)
-      }
-      window.location.reload();
-    } catch (error) {
-      console.error("Error fetching booking:", error);
-    }
-  };
+      };
+    
 
   return (
     <>
       <header>
         <Navbar2 />
       </header>
-      <div className="bookings_body">
-        <div className="bookings_box">
-          <div className="bookings_head">
-            <h1>Bookings this week:</h1>
+      <div className="enrollments_body">
+        <div className="enrollments_box">
+          <div className="enrollments_head">
+            <h1>Enrollments this week:</h1>
           </div>
-          <div className="bookings_table">
+          <div className="enrollments_table">
             <select value={selectedValue} onChange={handleChange}>
               <option value="Previous_Date">Past Records</option>
               <option value="Default">Default</option>
@@ -141,11 +143,10 @@ const Bookings = () => {
 
             {/* Scrollable table */}
             <div className="table_container">
-              <table className="bookings_details">
+              <table className="enrollments_details">
                 <thead>
                   <tr>
                     <th>Date</th>
-                    <th>Day</th>
                     <th>Time</th>
                     <th>Session Name</th>
                     <th>User Email</th>
@@ -154,42 +155,41 @@ const Bookings = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {bookings.length > 0 ? (
-                    bookings
+                  {enrollments.length > 0 ? (
+                    enrollments
                       .filter((b) => {
-                        const bookingDate = new Date(b.date);
+                        const enrollmentDate = new Date(b.date);
                         const today = new Date();
 
                         today.setHours(0, 0, 0, 0);
 
                         if (selectedValue === "Previous_Date") {
-                          return bookingDate < today;
+                          return enrollmentDate < today;
                         } else {
-                          return bookingDate >= today;
+                          return enrollmentDate >= today;
                         }
                       })
                       .map((b, index) => (
                         <tr key={index}>
                           <td>{b.date}</td>
-                          <td>{b.day}</td>
                           <td>{b.time}</td>
                           <td>{b.session_name}</td>
                           <td>{b.user?.email}</td>
                           <td>{b.payment_status}</td>
                           <button
-                            onClick={() => cancelBooking(b.date, b.time)}
+                            onClick={() => cancelEnrollment(b.date, b.time)}
                             className="btn btn-danger"
                             disabled={
                               new Date(b.date) < new Date().setHours(0, 0, 0, 0)
                             }
                           >
-                            Cancel Booking
+                            Cancel Enrollment
                           </button>
                         </tr>
                       ))
                   ) : (
                     <tr>
-                      <td colSpan="6">No bookings found</td>
+                      <td colSpan="6">No enrollments found</td>
                     </tr>
                   )}
                 </tbody>
@@ -197,29 +197,28 @@ const Bookings = () => {
             </div>
           </div>
 
-          <div className="bookings_download">
+          <div className="enrollments_download">
             <p>Download all data:</p>
             <CSVLink
-              data={bookings.map((b) => ({
+              data={enrollments.map((b) => ({
                 date: b.date,
-                day: b.day,
                 time: b.time,
                 session_name: b.session_name,
                 user_email: b.user?.email,
                 payment_status: b.payment_status,
               }))}
               headers={headers}
-              filename="bookings_data.csv"
+              filename="enrollments_data.csv"
               className="btn btn-primary"
             >
               Download CSV
             </CSVLink>
           </div>
-          <div className="bookings_head">
-            <h1>Update Bookings:</h1>
+          <div className="enrollments_head">
+            <h1>Update Enrollments:</h1>
           </div>
-          <div className="bookings_update">
-            <form className="bookings_form" onSubmit={handleUpdate}>
+          <div className="enrollments_update">
+            <form className="enrollments_form" onSubmit={handleUpdate}>
               <label>Date:</label>
               <input
                 type="date"
@@ -266,7 +265,7 @@ const Bookings = () => {
               <input
                 type="submit"
                 value="Update"
-                className="bookings_submitBtn"
+                className="enrollments_submitBtn"
               ></input>
             </form>
           </div>
@@ -274,6 +273,6 @@ const Bookings = () => {
       </div>
     </>
   );
-};
+}
 
-export default Bookings;
+export default Enrollments;
