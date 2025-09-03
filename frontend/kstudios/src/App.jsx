@@ -16,6 +16,7 @@ import Menu from "./components/Menu/Menu";
 import Instructions from "./components/Instructions/Instructions";
 import RegisterAdmin from "./components/registerAdmin/registerAdmin";
 import Profile from "./components/Profile/Profile";
+import Bookings from "./components/Bookings/Bookings";
 
 const App = () => {
   const location = useLocation();
@@ -38,6 +39,7 @@ const App = () => {
         <Route path="/instructions" element={<Instructions />} />
         <Route path="/registerAdmin" element={<RegisterAdmin />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/bookings" element={<Bookings />}/>
       </Routes>
     </>
   );

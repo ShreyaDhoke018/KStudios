@@ -40,6 +40,10 @@
   background-color: #005fa3;
 }
 
+.classes{
+  font-size: 16px;
+}
+
 /* Responsive styles */
 @media (max-width: 1024px) {
   .menu_table {

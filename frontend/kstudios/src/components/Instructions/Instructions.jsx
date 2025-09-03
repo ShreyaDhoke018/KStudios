@@ -1,24 +1,13 @@
-import React from "react";
+import React , {useState, useEffect} from "react";
 import "./Instructions.css";
 import Navbar2 from '../Navbar2/Navbar2';
+import ContentEditable from "react-contenteditable";
 
 const Instructions = () => {
-  return (
-    <>
-      <header>
-        <Navbar2 />
-      </header>
-      <main>
-        <div className="instructions_body">
-          <div className="instructions_box">
-            <div className="instructions_head">
-              <h1>Terms and Conditions</h1>
-            </div>
-            <div className="instructions_info">
-              <h6>
-                Please read carefully all the mentioned rules and regulations
-              </h6>
-              <ul className="instructions_list">
+
+  const [role, setRole] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
+  const [instructions, setInstructions] = useState(`<ul className='instructions_list'>
                 <li>
                   The studio shall be used only for mutually agreed activity.
                   Any change of activity requires prior written consent.
@@ -143,7 +132,63 @@ const Instructions = () => {
                   </ol>
                 </li>
               </ul>
+              `);
+
+
+    useEffect(() => {
+        const userRole = localStorage.getItem("role");
+        if (userRole) {
+          setRole(JSON.parse(userRole));
+        }
+      }, []);
+
+      const handleSave = () => {
+        setIsEditing(false);
+        console.log("Saved instructions:", instructions);
+      };
+
+  return (
+    <>
+      <header>
+        <Navbar2 />
+      </header>
+      <main>
+        <div className="instructions_body">
+          <div className="instructions_box">
+            <div className="instructions_head">
+              <h1>Terms and Conditions</h1>
             </div>
+            <div className="instructions_info">
+              <h6>
+                Please read carefully all the mentioned rules and regulations
+              </h6>
+
+              <ContentEditable
+                html={instructions}
+                disabled={!(role === "Admin" && isEditing)}
+                onChange={(e) => setInstructions(e.target.value)}
+                className="instructions_list"
+              />
+            </div>
+            {role === "Admin" && (
+              <div className="instructions_btnBox">
+                {isEditing ? (
+                  <button
+                    className="instructions_button save"
+                    onClick={handleSave}
+                  >
+                    Save
+                  </button>
+                ) : (
+                  <button
+                    className="instructions_button edit"
+                    onClick={() => setIsEditing(true)}
+                  >
+                    Edit
+                  </button>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </main>

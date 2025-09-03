@@ -7,7 +7,7 @@ const Navbar2 = () => {
 
   const [role, setRole] = useState("");
    useEffect(() => {
-      const userRole = sessionStorage.getItem("role");
+      const userRole = localStorage.getItem("role");
       if (userRole) {
         setRole(JSON.parse(userRole));
       }
@@ -46,11 +46,11 @@ const Navbar2 = () => {
                 <Nav.Link as={NavLink} to="/" className="nav-link-text">
                   Image Gallery
                 </Nav.Link>
-                <Nav.Link as={NavLink} to="/registerAdmin" className="nav-link-text">
-                  Register Admin
+                <Nav.Link as={NavLink} to="/bookings" className="nav-link-text">
+                  Manage Bookings
                 </Nav.Link>
                 <Nav.Link as={NavLink} to="/" className="nav-link-text">
-                  Manage Details
+                  Manage Enrollments
                 </Nav.Link>
               </>
             ) : (

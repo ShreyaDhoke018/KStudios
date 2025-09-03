@@ -69,6 +69,25 @@ body {
   color: #c0392b;
 }
 
+.instructions_button{
+      background: yellow;
+    width: 50%;
+    border-radius: 10px;
+    display: flex
+;
+    justify-content: center;
+        align-content: center;
+    flex-wrap: wrap;
+    height: 38px;
+    font-size: 18px;
+}
+
+.instructions_btnBox{
+      display: flex
+;
+    justify-content: center;
+}
+
 /* Ordered list nested inside list item */
 .instructions_list ol {
   margin-top: 8px;

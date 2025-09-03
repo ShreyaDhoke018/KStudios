@@ -33,7 +33,8 @@ const Login = () => {
 
       // Store the returned map (username, role) in sessionStorage
       localStorage.setItem("userId", JSON.stringify(data.id))
-      localStorage.setItem("user", JSON.stringify(data.name));
+      localStorage.setItem("uid", JSON.stringify(data.uid));
+      localStorage.setItem("user", JSON.stringify(data.username)); 
       localStorage.setItem("role", JSON.stringify(data.role));
       localStorage.setItem("profile", JSON.stringify(data.profile));
 

@@ -4,6 +4,7 @@ import "./registerAdmin.css";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import Navbar2 from '../Navbar2/Navbar2';
+import AppNavbar from "../Navbar/AppNavbar";
 
 const registerAdmin = () => {
   const [name, setName] = useState("");
@@ -72,7 +73,7 @@ const registerAdmin = () => {
   return (
     <>
       <header>
-        <Navbar2 />
+        <AppNavbar/>
       </header>
       <main>
         <div

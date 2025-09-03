@@ -1,0 +1,215 @@
+.bookings_body {
+  min-height: 92vh;
+  position: absolute;
+  top: 8%;
+  width: 100%;
+  display: flex;
+  flex-direction: column; /* stack content */
+  justify-content: flex-start;
+  align-items: center;
+  padding: 20px;
+  background-color: #e2edfc;
+}
+
+.bookings_box {
+  width: 90%;
+  max-width: 1200px;
+  background: #062a3b;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: #fff;
+}
+
+.bookings_head h1 {
+  font-size: 1.8rem;
+  color: #f2ea0c;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.bookings_table {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  color: #000;
+}
+
+.bookings_table select {
+  width: fit-content;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+}
+
+.table_container {
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.bookings_details {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+.bookings_details th,
+.bookings_details td {
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.bookings_details th {
+  background: #f1f1f1;
+  font-weight: bold;
+}
+
+.bookings_download {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.bookings_download button {
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: none;
+  background: #0d6efd;
+  color: white;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.2s ease-in;
+}
+
+.bookings_download button:hover {
+  background: #084298;
+}
+
+.bookings_update {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
+  align-self: center;
+  color: #000;
+}
+
+.bookings_form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.bookings_form label {
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.bookings_form input,
+.bookings_form select {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+}
+
+.bookings_submitBtn{
+    background-color: #084298;
+    color: #fff;
+}
+
+/* ===========================
+   MEDIA QUERIES
+=========================== */
+
+/* Tablet screens */
+@media (max-width: 992px) {
+  .bookings_box {
+    padding: 20px;
+  }
+
+  .bookings_update {
+    width: 80%;
+  }
+
+  .bookings_head h1 {
+    font-size: 1.5rem;
+  }
+
+  .bookings_details th,
+  .bookings_details td {
+    font-size: 0.85rem;
+    padding: 8px;
+  }
+}
+
+/* Mobile screens */
+@media (max-width: 768px) {
+  .bookings_body {
+    padding: 10px;
+  }
+
+  .bookings_box {
+    width: 100%;
+    border-radius: 10px;
+    padding: 15px;
+  }
+
+  .bookings_table select {
+    font-size: 0.8rem;
+    padding: 4px 8px;
+  }
+
+  .table_container {
+    max-height: 250px;
+  }
+
+  .bookings_details th,
+  .bookings_details td {
+    font-size: 0.8rem;
+    padding: 6px;
+  }
+
+  .bookings_update {
+    width: 100%;
+    padding: 15px;
+  }
+}
+
+/* Very small mobile screens */
+@media (max-width: 480px) {
+  .bookings_head h1 {
+    font-size: 1.2rem;
+  }
+
+  .bookings_download {
+    flex-direction: column;
+    gap: 6px;
+    align-items: flex-start;
+  }
+
+  .bookings_download button {
+    width: 100%;
+    text-align: center;
+  }
+
+  .bookings_details th,
+  .bookings_details td {
+    font-size: 0.75rem;
+    padding: 4px;
+  }
+}

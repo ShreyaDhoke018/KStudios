@@ -19,13 +19,18 @@ const AppNavbar = () => {
     const userProfile = localStorage.getItem("profile");
     if (storedUser) {
       setUser(JSON.parse(storedUser));
-      setRole(JSON.parse(userRole));
+      if (userRole) setRole(JSON.parse(userRole));
       setImage(JSON.parse(userProfile));
     }
    
   }, []);
 
-
+useEffect(() => {
+      const userRole = localStorage.getItem("role");
+      if (userRole) {
+        setRole(JSON.parse(userRole));
+      }
+    }, []);
 
 
   const handleLogout = () => {
@@ -66,6 +71,11 @@ const AppNavbar = () => {
                   <Nav.Link as={NavLink} to="/profile">
                     My Profile
                   </Nav.Link>
+                  {role === "Admin" && (
+                    <Nav.Link as={NavLink} to="/registerAdmin">
+                      Register Admin
+                    </Nav.Link>
+                  )}
                   <img
                     src={profileImage}
                     alt="Profile"

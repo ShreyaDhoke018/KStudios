@@ -13,9 +13,8 @@ public class Booking {
     @Column(length = 50, nullable = false)
     private String day;
 
-    @Column(nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date date;
+    @Column(length = 200, nullable = false)
+    private String date;
 
     @Column(length = 200, nullable = false)
     private String time;
@@ -31,10 +30,13 @@ public class Booking {
     @JoinColumn(name = "cust_id", referencedColumnName = "uid", nullable = false)
     private Users user;
 
+    @Column(length= 150, nullable = false)
+    private String session_name;
+
     public Booking() {}
 
     public Booking(Users user, String payment_status, String slot_status,
-                   String time, Date date, String day, int slot_id) {
+                   String time, String date, String day, int slot_id, String session_name) {
         this.user = user;
         this.payment_status = payment_status;
         this.slot_status = slot_status;
@@ -42,6 +44,15 @@ public class Booking {
         this.date = date;
         this.day = day;
         this.slot_id = slot_id;
+        this.session_name = session_name;
+    }
+
+    public String getSession_name() {
+        return session_name;
+    }
+
+    public void setSession_name(String session_name) {
+        this.session_name = session_name;
     }
 
     public int getSlot_id() {
@@ -60,11 +71,11 @@ public class Booking {
         this.day = day;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
